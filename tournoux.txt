@@ -1,0 +1,7 @@
+(base) santosg@tournoux:/misc/tournoux2/santosg$ module load matlab/R2023a 
+(base) santosg@tournoux:/misc/tournoux2/santosg$ matlab
+MATLAB is selecting SOFTWARE OPENGL rendering.
+
+>> pat_conn
+
+
