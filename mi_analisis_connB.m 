@@ -1,0 +1,39 @@
+% --- CONFIGURACIÓN INICIAL ---
+
+addpath(genpath('/misc/tournoux2/santosg/spm/'))
+addpath(genpath('/misc/tournoux2/santosg/conn/'))
+
+which conn_batch.m
+
+clear batch;
+cwd = pwd; 
+batch.filename = fullfile(cwd, 'mi_estudio_conn.mat'); % Nombre del proyecto
+
+% --- DATOS DEL SUJETO ---
+% Cambia estas rutas por las de tus archivos reales (.nii o .nii.gz)
+NSUBJECTS = 1;
+batch.Setup.nsubjects = NSUBJECTS;
+batch.Setup.RT = 2.0; % Tiempo de Repetición en segundos
+
+% Rutas de archivos (ejemplo)
+anat_file = fullfile(cwd, 'sub-01', 'anat', 'sub-01_T1w.nii.gz'); 
+func_file = fullfile(cwd, 'sub-01', 'func', 'sub-01_task-flanker_run-1_bold.nii'); 
+ 
+batch.Setup.structurals{1} = anat_file;
+batch.Setup.functionals{1}{1} = func_file;
+
+% --- PASOS DE PREPROCESAMIENTO ---
+% Definimos el pipeline estándar (Realineación, Segmentación, Normalización, etc.)
+batch.Setup.preprocessing.steps = {'default_mni'};
+batch.Setup.preprocessing.voxelsize_anat = 1;
+batch.Setup.preprocessing.voxelsize_func = 2;
+
+% --- EJECUCIÓN ---
+% setup: 1 para ejecutar la configuración inicial
+% waitbar: 1 para ver la barra de progreso
+batch.Setup.done = 1;
+batch.Setup.overwrite = 'Yes';
+
+% Ejecutar todo
+conn_batch(batch);
+
