@@ -1,5 +1,8 @@
 Chapter #4: The CONN GUI
-Overview
+========================
+
+**Overview**
+
 One of CONN’s major advantages is its graphical user interface (GUI). Virtually everything that you will need to do can be done from 
 the GUI, and CONN’s layout is straightforward and clear.
 

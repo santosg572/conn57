@@ -1,5 +1,8 @@
 Chapter #5: Preprocessing
-Overview
+=========================
+
+**Overview**
+
 Preprocessing a resting-state dataset is similar to how you preprocess a task-related dataset: You do the same steps of realignment, 
 segmentation, normalization, and so on. The main difference is in the motion threshold. Resting-state datasets are notoriously 
 susceptible to motion-related artifacts; even small movements can introduce spurious correlations. These artifacts are particularly 

@@ -1,5 +1,8 @@
 Chapter #2: Downloading the Data
-Overview
+=================================
+
+**Overview**
+
 The data we will use for this tutorial comes from the open-access repository Openneuro.org. From the Openneuro homepage, click on 
 Dashboard, which will load all of the available datasets. Select the dataset “fMRI: resting state and arithmetic task”, which should 
 be listed in the first page that comes up. If you are unable to find it, use the search bar to look for the string “arithmetic”; it 
