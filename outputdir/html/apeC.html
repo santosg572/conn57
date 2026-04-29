@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="sp" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; документација conn 01</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=cb95fe6c"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Индекс" href="genindex.html" />
+    <link rel="search" title="Претрага" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="apeD.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="apeB.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>Appendix C: Importing ROIs
+Overview
+The default atlases that come with the CONN toolbox can be found in the folder conn/rois. The file atlas.nii contains parcellations
+derived from the Harvard-Oxford Cortical atlas, as well as cerebellum parcellations. Similarly, the networks.nii file contains 32
+networks that are commonly found in the resting-state literature.</p>
+<p>Each of these files has a companion .txt file that indicates what label belongs to which parcellation. If you open the file
+atlas.txt, for example, you would see these first few lines:</p>
+<p>FP r (Frontal Pole Right)
+FP l (Frontal Pole Left)
+IC r (Insular Cortex Right)
+IC l (Insular Cortex Left)
+SFG r (Superior Frontal Gyrus Right)
+SFG l (Superior Frontal Gyrus Left)
+MidFG r (Middle Frontal Gyrus Right)
+MidFG l (Middle Frontal Gyrus Left)
+These correspond to the seeds that you see during the 1st and 2nd-level analyses:</p>
+<p>../../_images/08_1stLevelPreview.png
+Adding ROIs
+What if you want to use your own images - either a single ROI, or an entire atlas? In that case, you would need to create a series
+of ROIs combined into a single image, in which each ROI is indexed by a separate number. If you use Edit mode with FSLeyes, for
+example, you can assign a different number to each ROI that you draw on the brain. To keep things simple, increase the ROI indices
+by increments of 1. Images that contain several ROIs that parcellate the brain into different regions are called atlases.</p>
+<p>When you have created the atlas, save it in a folder (such as the conn/rois folder) and use a text editor to create a text file with
+the same root name as the atlas. For example, if my atlas is called AllInsulaROIs.nii, I would create a text file called
+AllInsulaROIs.txt. Let’s say that I have created an atlas with 4 ROIs: One in the left Anterior Insula, one in the left Posterior
+Insula, one in the right Anterior Insula, and one in the right Posterior Insula. These could be created by using Marsbar to place a
+sphere of a given radius around the peak coordinates of another study, for example, or by using an atlas to create a mask. (For
+examples of how to do both through SPM, see this chapter.)</p>
+<p>As mentioned above, these ROIs should each have a single number filling in their constituent voxels, and the numbers for each ROI
+should increase consecutively. For example, the left AI could be labeled with 1’s, the left PI with 2’s, the right AI with 3’s, and
+the right PI with 4’s. You can either do this manually by using an image calculator to multiply each ROI by a given number and then
+add all of them together, or you can use Marsbar’s “Export” function to do this automatically, by selecting ROI Definition -&gt; Export
+-&gt; Number Labelled ROI Image. The latter approach assumes that you created spherical ROIs through Marsbar; if you have, this method
+can save you time.</p>
+<p>In any case, once you have created your ROIs, you could enter the following text into the file, following our current example:</p>
+<p>LeftAnteriorInsula (MNI -38, 6, 2)
+LeftPosteriorInsula (MNI 35, 7, 3)
+RightAnteriorInsula (MNI -38, -6, 5)
+RightPosteriorInsula (MNI 35, -11, 6)
+This will generate a label in the CONN toolbox when these ROIs are processed, and also serve as a reminder of where exactly the ROIs
+are located. In this example, I created ROIs with a 6mm sphere around the MNI coordinates listed to the right of each ROI.</p>
+<p>To import these ROIs, from the Setup tab click on ROIs from the menu on the left. Click on the New button at the bottom when you
+hover your mouse over the ROIs column, and call the ROI whatever you want; in this case, we will call it “AllInsulaROIs”. Check the
+box underneath that is next to “Atlas File”. Then in the “Import ROI files” panel on the right, navigate to where you stored your
+ROI, and select it by double-clicking on it:</p>
+<p>../../_images/C_ImportROIs.png
+Once it is imported, you can use the up and down arrows next to the image to navigate through the slices and see where they are. If
+you click on the image panel, it will open up a new window, displaying where the ROIs are located on one of the subject’s functional
+volumes:</p>
+<p>../../_images/C_VisualizeROIs.png
+If the ROIs are located where you think they should be, you are ready to re-run the analyses using your custom ROIs. You will have
+to rerun Setup (but not preprocessing), by clicking on the Done button. If you have already run analyses and are re-running them
+with additional ROIs, you can save time by selecting the option do not overwrite (skip already-processed subjects/ROIs:</p>
+<p>../../_images/C_Processing.png
+You will do the same for the Denoising tab and the 1st-level analyses tab; you will then be able to run any second-level analyses as
+usual:</p>
+<p>../../_images/C_SecondLevel.png
+Exercises
+Create four new ROIs, using either the WFU Pickatlas toolbox or spheres generated with the Marsbar toolbox (see this chapter for
+details on how to use both toolboxes). Make sure that the resulting image contains ascending, consecutive values for each ROI. Then,
+create an associated .txt file, and save both the image and the file into your conn/rois directory. Process the data using these new
+ROIs, and save a screenshot of the 1st-level result for a single subject, finding a slice that shows the seed that you used.</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">conn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигација</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="apeB.html" title="претходна глава">&lt;no title&gt;</a></li>
+      <li>Next: <a href="apeD.html" title="наредна глава">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Брза претрага</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Тражи" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, leopoldo.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/apeC.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

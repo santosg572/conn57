@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="sp" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; документација conn 01</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=cb95fe6c"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Индекс" href="genindex.html" />
+    <link rel="search" title="Претрага" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="c03.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="c01.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>Chapter #2: Downloading the Data
+Overview
+The data we will use for this tutorial comes from the open-access repository Openneuro.org. From the Openneuro homepage, click on
+Dashboard, which will load all of the available datasets. Select the dataset “fMRI: resting state and arithmetic task”, which should
+be listed in the first page that comes up. If you are unable to find it, use the search bar to look for the string “arithmetic”; it
+should be the first result that is returned.</p>
+<p>Click on the sub-01 folder, and then click on anat. Click the Download button next to the file “sub-01_T1w.nii”, which will begin
+downloading the file. Next, click on the func folder to look at its contents, and download the file “sub-01_task-rest_bold.nii.gz”.</p>
+<p>If these files have been downloaded to your Downloads folder, open a Matlab terminal and type the following:</p>
+<p>cd ~/Desktop
+mkdir CONN_Demo
+This navigates to your Desktop and creates a new folder called CONN_Demo. This is where we will store our data and do our analyses.
+To organize the data into two folders within the CONN_Demo directory, type the following from your Matlab terminal:</p>
+<p>cd CONN_Demo
+mkdir sub-01/func
+mkdir sub-01/anat
+Which will create the folders func and anat within a folder called sub-01. To move your downloaded files into their corresponding
+directories, type the following:</p>
+<p>movefile('~/Downloads/sub-01_task-rest_bold.nii.gz', 'sub-01/func')
+movefile('~/Downloads/sub-01_T1w.nii', 'sub-01/anat')
+Type ls sub-01/anat and ls sub-01/func to make sure that the functional data is now located in the func directory, and that the
+anatomical data is located in the anat directory. If so, you are now ready to begin using the CONN toolbox, which we now turn to.</p>
+<p>Video
+Click here for a video demonstration of how to download the data.</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">conn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигација</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="c01.html" title="претходна глава">&lt;no title&gt;</a></li>
+      <li>Next: <a href="c03.html" title="наредна глава">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Брза претрага</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Тражи" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, leopoldo.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/c02.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

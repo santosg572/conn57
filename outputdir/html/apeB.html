@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="sp" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; документација conn 01</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=cb95fe6c"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Индекс" href="genindex.html" />
+    <link rel="search" title="Претрага" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="apeC.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="apeA.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>Appendix B: Other Second-Level Analyses
+Overview
+Now that you’ve run a group-level analysis, you may be wondering how you can set up more advanced types of analyses - for example,
+testing differences in connectivity before and after some type of intervention (also known as a pre-post design), or testing for
+differences in connectivity between groups. You may also want to use a different parcellation of connectivity nodes than the default
+ones provided by the CONN toolbox.</p>
+<p>Setting up a Pre-Post design
+One common functional connectivity analysis is a pre-post design. In this scenario, the subject is scanned once to measure their
+connectivity profile at a baseline, or before an intervention. Then the intervention occurs, either inside or outside of the scanner
+- such as undergoing a new behavioral therapy, for example. After this intervention the subject is scanned again, and the difference
+in connectivity can be calculated. If we are doing an anger management behavioral intervention, for instance, we may predict that
+there would be increased connectivity between regions involved in regulating emotion, such as the prefrontal cortex, and regions
+associated with detecting emotional salient stimuli, such as the amygdala and other parts of the limbic system.</p>
+<p>This design requires at least two scans: One before, and one after. Click on this link which displays a dataset that has
+resting-state scans at two separate time points. Download the resting-state data for subject one, for both session 1 and session 2
+(fullbrain_run-1), along with the anatomical image for run 1 (T1w.nii).</p>
+<p>In the CONN GUI, open a new project, calling it PrePost_CONN. In the Basic tab, enter a TR of 3 seconds, and set the number of
+sessions to 2. For the structural file, load the T1w.nii image; since there was only one anatomical image acquied, we will set this
+to be a Session-invariant structural. You may come across experiments that acquire a separate anatomical scan for each session, in
+which case you can specify session-specific structurals.</p>
+<p>The Functional tab will display a menu containing one subject, and two sessions for that subject. Hold shift and click to select
+both sessions, navigate to the folder containing the functional data, and hold control and click to select both the session 1 and
+session 2 data. Click Import, and CONN will load each functional run into its corresponding session. Note that there is now a bar
+beneath the functional images displayed in the middle window: If Session 1 is highlighted, then the left-hand part of the bar is
+highlighted in orange, and the right-hand part of the bar is grey; if Session 2 is highlighted, the color-coding is reversed. The
+orange highlighting indicates that there are two sessions, and each is assigned its corresponding volumes.</p>
+<p>../../_images/B_Functional_prepost.png
+Now we will click on the Conditions tab. When we were analyzing one session from one subject, the default was to generate a
+condition called rest that represented the time-series across the entire session. Now that we have two sessions, it will be more
+helpful to label them Pre and Post. Rename rest to Pre, making sure that Session 1 for Subject 1 is highlighted. Then click on the +
+sign at the bottom of the Conditions menu to add a new Condition, rename that condition to Post, highlight Session 2 for subject 1,
+and use the “Condition interval” menu to specify that the condition spans entire session. This will highlight the second session in
+orange:</p>
+<p>../../_images/B_Conditions_prepost.png
+Note</p>
+<p>If you accidentally add a condition that you no longer want, click on the - sign at the bottom of the Conditions menu.</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">conn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигација</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="apeA.html" title="претходна глава">&lt;no title&gt;</a></li>
+      <li>Next: <a href="apeC.html" title="наредна глава">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Брза претрага</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Тражи" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, leopoldo.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/apeB.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

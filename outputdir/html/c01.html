@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang="sp" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; документација conn 01</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=cb95fe6c"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Индекс" href="genindex.html" />
+    <link rel="search" title="Претрага" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="c02.html" />
+    <link rel="prev" title="conn documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p>Chapter #1: Functional Connectivity Demonstration
+Overview
+Before we begin using the CONN toolbox, a short demonstration of functional connectivity using a simpler, easy-to-understand method
+may help prepare you for using a more sophisticated package. I prefer to use the fMRI analysis package FSL for this kind of
+demonstration, although both AFNI and SPM are able to do functional connectivity analyses as well. Before going on, I recommend that
+you work through the FSL tutorials to familiarize yourself with how FSL works, what a time-series is, and how to extract data from
+regions of interest (ROIs). If you already know how to do a functional connectivity analysis in FSL and simply want to get started
+with the CONN toolbox, click the Next button down below.</p>
+<p>Note</p>
+<p>This tutorial will use a sample dataset that you can download here. The file size is about 20MB.</p>
+<p>Functional Connectivity Analysis with FSL
+As you saw in the FSL tutorial, each voxel of an fMRI dataset contains a time-series, or sequence of BOLD activation measurements
+that are concatenated together. The sampling rate of the time-series is the Time to Repetition (TR), which for most fMRI studies is
+around 2-3 seconds. For each voxel, therefore, the BOLD activation is measured at each TR, and this continues for a period of time
+specified by the user. This period of time when the scanner is measuring the BOLD signal is called a run (or session, in SPM), and a
+typical experiment is composed of several runs.</p>
+<p>To examine the time-series of the sample dataset, navigate to where you downloaded the TimeSeries_ExampleData.nii.gz file, and type:</p>
+<p>fsleyes TimeSeries_ExampleData.nii.gz
+This will open the file in the fsleyes viewer. From the menu at the top of your window, click on View -&gt; Time series. This will open
+a time-series panel at the bottom of the fsleyes viewer. To make the numbers easier to understand, and to enable us to compare
+time-series from distant voxels, click on the “Plotting mode” dropdown menu and select “Normalised”. This will scale the time-series
+relative to a mean of 0.</p>
+<p>../../_images/01_FSL_Timeseries.png
+A sample time-series from a voxel in the dorsal anterior cingulate cortex.</p>
+<p>Now, click on a random voxel, and then from the menu at the top of the screen select Tools -&gt; Seed correlation (Pearson). The voxel
+you have currently selected will be a seed voxel; the time-series of this seed voxel will be used as a reference. This will generate
+a connectivity map between your seed voxel and every other voxel in the brain, with hotter colors (i.e., more intense shades of red
+and yellow) representing greater correlation. Cooler colors (i.e., shades of blue), by contrast, represent where there is negative
+correlation.</p>
+<p>You will also notice that this has created a new file in the Overlay list, TimeSeries_ExampleData/correlation. If you highlight this
+image by clicking on it, you can then set the “Min.” and “Max.” thresholds to only show those voxels that correlate with the seed
+region at or higher than a certain level. Set the “Min” field to 0.4, and take a look at which voxels remain after this threshold.</p>
+<p>../../_images/01_FSL_dACC_Corr.png
+The functional connectivity map after thresholding at r &gt; 0.4. Note that the voxel we used as our seed region will have a perfect
+r=1.0 correlation with itself, and that neighboring voxels are also highly correlated with it. There are a couple of smaller
+clusters farther away from the dACC that correlate with the seed region, but they are relatively weak.</p>
+<p>Note</p>
+<p>If you’ve read the Cluster Correction appendix, you will remember that one of the justifications for cluster correction is that a
+given voxel is not completely independent from its neighbors. How do you see that principle being reflected in this correlation map?</p>
+<p>Now let’s see whether we can replicate one of the most well-known functional connectivity networks, the so-called Default Mode
+Network. This network is a pattern of correlated regions, primarily the ventromedial prefrontal cortex and the posterior cingulate
+cortex. Use the “Voxel location” fields to enter values of X=32, Y=53, and Z=16, and use this voxel as a seed for another functional
+connectivity analysis. What do you notice about the resulting correlation map?</p>
+<p>../../_images/01_FSL_DMN.png
+The Default Mode Network, showing high correlation between the ventromedial prefrontal cortex and posterior cingulate cortex nodes.
+This map can be saved as its own image by clicking on the disk icon next to the correlation map that has been generated. You can
+then convert this to a z-score using Fisher’s r-to-z transform, and use those transformed images as input into a group-level
+analysis. The reasons for this transform, which is done automatically in the CONN toolbox, will be discussed in a later chapter on
+1st-level analysis.</p>
+<p>Functional Connectivity Analysis with Neurosynth
+Another useful tool for understanding functional connectivity is Neurosynth. Neurosynth is primarily a meta-analysis tool, but it
+can also be used to quickly generate functional connectivity maps for seed regions in a template brain. If you click on the
+“Locations” tab, a new window opens that says “Functional connectivity and coactivation maps”. Click on any coordinate in the brain,
+and then click on “What’s here?” After a few moments, a correlation map will be generated.</p>
+<p>For example, let’s say that we wanted to generate a functional connectivity map for the default mode network (described above). If
+you click on the coordinates [0, 44, -14] and click the “What’s here?” button, you should see significant clusters in both the
+region that you clicked, and also in the posterior cingulate cortex. These maps are generated based on a sample of a thousand
+subjects collected by Yeo et al. (2011), and contain the typical networks you would see in any sample.</p>
+<p>As an exercise, try setting the coordinates to one of the nodes of the salience network, for example - [0 26 32], which is roughly
+within the anterior cingulate cortex - and see whether it correlates with the bilateral insula. Try setting the seed in other
+regions, such as the motor cortex or auditory cortex. What other regions would you expect would correlate with those seed regions?
+Why?</p>
+<p>../../_images/01_Neurosynth_FuncConn_Demo.gif
+Demonstration of how to generate functional connectivity maps with Neurosynth. Note that you can threshold the image to only show
+correlations above a certain value, and you can also download the correlation map to use as a mask.</p>
+<p>Video
+Click here for a brief overview of the history of functional connectivity, and how to do a simple functional connectivity analysis
+in FSL.</p>
+<p>Next Steps
+Now that you have an idea of what functional connectivity is and how we generate correlation maps, you are ready to begin learning
+about the CONN toolbox. Click Next to learn about how to first download the data we will be analyzing with CONN.</p>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">conn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигација</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="претходна глава">conn documentation</a></li>
+      <li>Next: <a href="c02.html" title="наредна глава">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Брза претрага</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Тражи" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, leopoldo.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/c01.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
